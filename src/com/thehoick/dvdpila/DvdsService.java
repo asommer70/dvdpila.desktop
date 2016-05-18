@@ -6,9 +6,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 import java.util.List;
+import java.util.Properties;
 
 public interface DvdsService {
-    public static final String URL = "http://localhost:3000/";
+    Properties mSettings = Settings.getSettings();
+
+    public static final String URL = mSettings.getProperty("url");
 
     @GET("dvds.json")
     Call<List<Dvd>> getDvds();

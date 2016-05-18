@@ -59,9 +59,6 @@ public class MainController {
         settingsDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         settingsDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-//        .setText(mSettings.getProperty("url"));
-
-
         Optional<ButtonType> result = settingsDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("OK pressed...");

@@ -20,8 +20,6 @@ public class SettingsController {
     }
 
     public void processResults() {
-
-        // TODO:as Add URL string to Settings XML.
         Properties settings = Settings.getSettings();
         if (settings == null) {
             settings = new Properties();

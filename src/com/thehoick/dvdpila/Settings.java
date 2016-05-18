@@ -6,7 +6,6 @@ import java.util.Properties;
 public class Settings {
     private static Properties mSettings = new Properties();
 
-    // TODO:as load Settings from XML.
     private Settings() {
     }
 
@@ -51,6 +50,4 @@ public class Settings {
 
         }
     }
-
-    // TODO:as save Settings somewhere... maybe SQLite, even better a simple XML file.
 }
