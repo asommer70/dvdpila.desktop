@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -13,9 +14,12 @@
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.Controller">
     <top>
         <HBox>
-            <Text text="DVD Pila! (Menu)" />
+           <children>
+               <Text text="DVD Pila! (Menu)" />
+               <Button mnemonicParsing="false" text="Settings" onAction="#getDvds"/>
+           </children>
             <padding>
-                <Insets bottom="10" top="5" right="10" left="10"/>
+                <Insets bottom="10" left="10" right="10" top="5" />
             </padding>
         </HBox>
     </top>
@@ -32,9 +36,11 @@
         </rowConstraints>
 
           <padding>
-              <Insets right="10" left="10"/>
+              <Insets left="10" right="10" />
           </padding>
-          <Text text="I've Got Worms..." GridPane.rowIndex="1" />
+         <children>
+             <Text text="I've Got Worms..." GridPane.rowIndex="1" />
+         </children>
 
       </GridPane>
    </center>
