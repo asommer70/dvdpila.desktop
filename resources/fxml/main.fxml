@@ -11,17 +11,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.Controller">
+<BorderPane fx:id="mMainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.MainController">
     <top>
-        <HBox>
-           <children>
-               <Text text="DVD Pila! (Menu)" />
-               <Button mnemonicParsing="false" text="Settings" onAction="#getDvds"/>
-           </children>
-            <padding>
-                <Insets bottom="10" left="10" right="10" top="5" />
-            </padding>
-        </HBox>
+        <MenuBar>
+            <Menu text="Settings">
+                <MenuItem text="DVD Pila! URL" onAction="#showSettingsDialog" />
+            </Menu>
+        </MenuBar>
     </top>
    <center>
       <GridPane gridLinesVisible="true" GridPane.rowIndex="2">
@@ -40,6 +36,15 @@
           </padding>
          <children>
              <Text text="I've Got Worms..." GridPane.rowIndex="1" />
+             <HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+                 <children>
+                     <Text text="DVD Pila! (Menu)" />
+                     <Button mnemonicParsing="false" text="Settings" onAction="#getDvds"/>
+                 </children>
+                 <padding>
+                     <Insets bottom="10" left="10" right="10" top="5" />
+                 </padding>
+             </HBox>
          </children>
 
       </GridPane>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<DialogPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.SettingsController">
+    <headerText>
+        DVD Pila! Settings
+    </headerText>
+    <content>
+        <GridPane vgap="20" hgap="20">
+            <Label text="DVD Pila! URL" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="mUrlField"/>
+        </GridPane>
+    </content>
+</DialogPane>
