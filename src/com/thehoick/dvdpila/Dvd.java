@@ -1,110 +1,131 @@
+
 package com.thehoick.dvdpila;
 
-import java.util.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Dvd {
-    private int mId;
-    private String mTitle;
-    private int mRating;
-    private String mAbstractTxt;
-    private String mAbstractSource;
-    private String mAbstractUrl;
-    private String mFileUrl;
-    private int mPlaybackTime;
-    private Date mCreatedAt;
-    private Date mUpdatedAt;
-    private String mImageUrl;
-
-    public Dvd(String title) {
-        mTitle = title;
-    }
-
     @Override
     public String toString() {
         return "Dvd{" +
-                "mId=" + mId +
-                ", mTitle='" + mTitle + '\'' +
-                ", mRating=" + mRating +
-                ", mAbstractTxt='" + mAbstractTxt + '\'' +
-                ", mAbstractSource='" + mAbstractSource + '\'' +
-                ", mAbstractUrl='" + mAbstractUrl + '\'' +
-                ", mFileUrl='" + mFileUrl + '\'' +
-                ", mPlaybackTime=" + mPlaybackTime +
-                ", mCreatedAt=" + mCreatedAt +
-                ", mUpdatedAt=" + mUpdatedAt +
-                ", mImageUrl='" + mImageUrl + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", playbackTime=" + playbackTime +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("rating")
+    @Expose
+    private Integer rating;
+    @SerializedName("abstract_txt")
+    @Expose
+    private String abstractTxt;
+    @SerializedName("abstract_source")
+    @Expose
+    private String abstractSource;
+    @SerializedName("abstract_url")
+    @Expose
+    private String abstractUrl;
+    @SerializedName("file_url")
+    @Expose
+    private String fileUrl;
+    @SerializedName("playback_time")
+    @Expose
+    private Integer playbackTime;
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
+    @SerializedName("url")
+    @Expose
+    private String url;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public void setTitle(String title) {
-        mTitle = title;
+        this.title = title;
     }
 
-    public int getRating() {
-        return mRating;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setRating(int rating) {
-        mRating = rating;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public String getAbstractTxt() {
-        return mAbstractTxt;
+        return abstractTxt;
     }
 
     public void setAbstractTxt(String abstractTxt) {
-        mAbstractTxt = abstractTxt;
+        this.abstractTxt = abstractTxt;
     }
 
     public String getAbstractSource() {
-        return mAbstractSource;
+        return abstractSource;
     }
 
     public void setAbstractSource(String abstractSource) {
-        mAbstractSource = abstractSource;
+        this.abstractSource = abstractSource;
     }
 
     public String getAbstractUrl() {
-        return mAbstractUrl;
+        return abstractUrl;
     }
 
     public void setAbstractUrl(String abstractUrl) {
-        mAbstractUrl = abstractUrl;
+        this.abstractUrl = abstractUrl;
     }
 
     public String getFileUrl() {
-        return mFileUrl;
+        return fileUrl;
     }
 
     public void setFileUrl(String fileUrl) {
-        mFileUrl = fileUrl;
+        this.fileUrl = fileUrl;
     }
 
-    public int getPlaybackTime() {
-        return mPlaybackTime;
+    public Integer getPlaybackTime() {
+        return playbackTime;
     }
 
-    public void setPlaybackTime(int playbackTime) {
-        mPlaybackTime = playbackTime;
-    }
-
-    public Date getCreatedAt() {
-        return mCreatedAt;
-    }
-
-    public Date getUpdatedAt() {
-        return mUpdatedAt;
+    public void setPlaybackTime(Integer playbackTime) {
+        this.playbackTime = playbackTime;
     }
 
     public String getImageUrl() {
-        return mImageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 }

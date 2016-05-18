@@ -20,11 +20,9 @@ public class Controller {
             e.printStackTrace();
         }
 
-//        System.out.println("Getting DVDs...");
-//        DvdsService service = retrofit.create(DvdsService.class);
-//        mDvds = service.getDvds();
-//
         System.out.printf("mDvds.size: %d %n", mDvds.size());
+//        System.out.println(mDvds.get(0).getTitle());
+
         for (Dvd dvd : mDvds) {
             System.out.println(dvd);
         }
