@@ -1,8 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thehoick.dvdpila.DvdController">
     <top>
+        <Button fx:id="backBtn" text="Back">
+             <BorderPane.margin>
+                <Insets bottom="10.0" top="10.0" left="10.0" />
+             </BorderPane.margin>
+        </Button>
     </top>
 </BorderPane>
