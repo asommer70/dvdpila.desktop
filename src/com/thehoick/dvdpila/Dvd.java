@@ -1,21 +1,13 @@
-
 package com.thehoick.dvdpila;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Dvd {
-    @Override
-    public String toString() {
-        return "Dvd{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", fileUrl='" + fileUrl + '\'' +
-                ", playbackTime=" + playbackTime +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 
     @SerializedName("id")
     @Expose
@@ -25,7 +17,7 @@ public class Dvd {
     private String title;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private Object rating;
     @SerializedName("abstract_txt")
     @Expose
     private String abstractTxt;
@@ -48,6 +40,19 @@ public class Dvd {
     @Expose
     private String url;
 
+    @Override
+    public String toString() {
+        return "Dvd{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", rating=" + rating +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", playbackTime=" + playbackTime +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
@@ -64,11 +69,11 @@ public class Dvd {
         this.title = title;
     }
 
-    public Integer getRating() {
+    public Object getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Object rating) {
         this.rating = rating;
     }
 

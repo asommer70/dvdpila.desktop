@@ -4,8 +4,10 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public interface DvdsService {
@@ -13,8 +15,9 @@ public interface DvdsService {
 
     public static final String URL = mSettings.getProperty("url");
 
+    // http://localhost:3000/dvds.json?page=2
     @GET("dvds.json")
-    Call<List<Dvd>> getDvds();
+    Call<Dvds> getDvds(@QueryMap Map<String, String> options);
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URL)
