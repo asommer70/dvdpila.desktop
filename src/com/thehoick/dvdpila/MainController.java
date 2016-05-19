@@ -1,13 +1,11 @@
 package com.thehoick.dvdpila;
 
 
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,8 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainController {
-    List<Dvd> mDvds;
-    Properties mSettings;
+    private List<Dvd> mDvds;
     private int mMaxPages = 0;
     private Map<String, String> mOptions = new HashMap<String, String>();
 
@@ -33,37 +30,29 @@ public class MainController {
 
     public void initialize() {
         // Load Settings from XML.
-        mSettings = Settings.getSettings();
+        Properties settings = Settings.getSettings();
         mOptions.put("page", "1");
         getDvds(mOptions);
-        GridPane grid = getDvdGrid();
-        grid = addDvdsToGrid(grid);
-        mMainPane.setCenter(grid);
 
-//        addDvdsToGrid();
+        Pagination pager = new Pagination(mMaxPages, 0);
+        pager.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                mOptions.put("page", String.valueOf(pageIndex + 1));
+                getDvds(mOptions);
+                GridPane grid = getDvdGrid();
+                grid = addDvdsToGrid(grid);
+                mMainPane.setCenter(grid);
 
-        //Creates a Pagination control with an INDETERMINATE page count
-        //and the current page index equal to zero
-        Pagination pager = new Pagination(mMaxPages, 1);
-//        pager.setPageFactory(new Callback<Integer, Node>() {
-//            @Override
-//            public Node call(Integer pageIndex) {
-//                if (mOptions.get("page").equals("0")) {
-//                    mOptions.put("page", "1");
-//                    System.out.println("mOptions: " + mOptions.get("page"));
-//                    getDvds(mOptions);
-//                } else {
-//                    mOptions.put("page", String.valueOf(pageIndex));
-//                }
-//
-//                return addDvdsToGrid();
-//            }
-//        });
+                // Need to return something, and when trying to return the GridPane things were all jacked up.
+                return new VBox();
+            }
+        });
         mBottom.getChildren().add(pager);
     }
 
     @FXML
-    public void getDvds(Map<String, String> options) {
+    private void getDvds(Map<String, String> options) {
         DvdsService dvdsService = DvdsService.retrofit.create(DvdsService.class);
         Call<Dvds> call = dvdsService.getDvds(options);
 
@@ -76,8 +65,6 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        addDvdsToGrid();
     }
 
     private GridPane getDvdGrid() {
@@ -90,15 +77,17 @@ public class MainController {
             grid.getColumnConstraints().add(col);
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             RowConstraints row = new RowConstraints();
             row.setMinHeight(10.0);
-            row.setPrefHeight(30.0);
+            row.setPrefHeight(40.0);
             row.setVgrow(Priority.SOMETIMES);
             grid.getRowConstraints().add(row);
         }
 
-        grid.setPadding(new Insets(40, 10, 10, 10));
+        grid.setVgap(20);
+        grid.setPadding(new Insets(20, 10, 0, 10));
+        grid.setGridLinesVisible(true);
         grid.setId("mainGrid");
 
         return grid;
@@ -107,6 +96,7 @@ public class MainController {
     private GridPane addDvdsToGrid(GridPane grid) {
         int rowCount = 0;
         int colCount = 0;
+        grid.getChildren().removeAll();
         for (Dvd dvd : mDvds) {
             VBox dvdBox = getDvdVBox(dvd);
 
@@ -133,25 +123,10 @@ public class MainController {
 
         VBox dvdBox = new VBox();
         dvdBox.setPadding(new Insets(10, 10, 10, 10));
-        dvdBox.setSpacing(20);
+        dvdBox.setSpacing(10);
         dvdBox.setAlignment(Pos.CENTER);
         dvdBox.getChildren().addAll(dvdImage, dvdTitle);
         return dvdBox;
-    }
-
-    public int itemsPerPage() {
-        return 10;
-    }
-
-    public VBox createPage(int pageIndex) {
-        VBox box = new VBox(5);
-        int page = pageIndex * itemsPerPage();
-        for (int i = page; i < page + itemsPerPage(); i++) {
-//            TextArea text = new TextArea(textPages[i]);
-//            text.setWrapText(true);
-//            box.getChildren().add(text);
-        }
-        return box;
     }
 
     @FXML
