@@ -10,7 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+        Parent root = (Parent)loader.load();
+        MainController controller = loader.getController();
+        controller.setPageIndex(0);
         primaryStage.setTitle("DVD Pila!");
         primaryStage.setScene(new Scene(root, 800, 700));
         primaryStage.setMinWidth(800);

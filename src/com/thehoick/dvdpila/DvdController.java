@@ -17,25 +17,25 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class DvdController {
-    private static int mPageIndex;
+    public int mPageIndex;
+    public String mDvdId;
     @FXML
     Button backBtn;
 
     public void initialize() {
-        // Load Settings from XML.
+        System.out.println("mDvdId: " + mDvdId);
+
         backBtn.setOnAction(event -> {
             Node source = (Node)event.getTarget();
 
             try {
-                Parent parent = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-                Scene scene = new Scene(parent);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+                Parent parent = (Parent)loader.load();
+                MainController controller = loader.getController();
+                Scene scene = new Scene(parent, 800, 700);
                 Stage stage = (Stage)source.getScene().getWindow();
                 stage.setScene(scene);
-
-                // TODO:as figure out how to return to the correct Pagination pageIndex.
-                MainController.setPageIndex(mPageIndex);
-
-                // TODO:as fix rendering of Dvds layout... not sure why it's all bunched up in the left hand corner.
+                controller.setPageIndex(mPageIndex);
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -43,8 +43,9 @@ public class DvdController {
         });
     }
 
-    public static void initData(String dvdId, int pageIndex) {
+    public void initData(String dvdId, int pageIndex) {
         mPageIndex = pageIndex;
+        mDvdId = dvdId;
         System.out.println("dvdId: " + dvdId + " pageIndex: " + pageIndex);
     }
 

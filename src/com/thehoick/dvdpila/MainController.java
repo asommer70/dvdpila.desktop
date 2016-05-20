@@ -20,14 +20,34 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainController {
-    private static int mPageIndex;
+    public int mPageIndex;
     private List<Dvd> mDvds;
     private int mMaxPages = 0;
     private Map<String, String> mOptions = new HashMap<String, String>();
     private Pagination mPager;
 
-    public static void setPageIndex(int pageIndex) {
+    public void setPageIndex(int pageIndex) {
+        mMainPane.getChildren().removeAll();
+
         mPageIndex = pageIndex;
+        mPager = new Pagination(mMaxPages, mPageIndex);
+        mPager.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                mMainPane.getChildren().removeAll();
+                mOptions.put("page", String.valueOf(pageIndex + 1));
+                getDvds(mOptions);
+                GridPane grid = getDvdGrid();
+                grid = addDvdsToGrid(grid);
+                mMainPane.setCenter(grid);
+                // Need to return something, and when trying to return the GridPane things were all jacked up.
+                return new VBox();
+            }
+        });
+
+        // TODO:as figure out a way to only add the mPager once...
+        mPager.setId("dvdPager");
+        mBottom.getChildren().add(mPager);
     }
 
     @FXML
@@ -38,26 +58,8 @@ public class MainController {
     private HBox mBottom;
 
     public void initialize() {
-        mMainPane.getChildren().removeAll();
-        Properties settings = Settings.getSettings();
         mOptions.put("page", "1");
         getDvds(mOptions);
-
-        mPager = new Pagination(mMaxPages, mPageIndex);
-        mPager.setPageFactory(new Callback<Integer, Node>() {
-            @Override
-            public Node call(Integer pageIndex) {
-                mOptions.put("page", String.valueOf(pageIndex + 1));
-                getDvds(mOptions);
-                GridPane grid = getDvdGrid();
-                grid = addDvdsToGrid(grid);
-                mMainPane.setCenter(grid);
-
-                // Need to return something, and when trying to return the GridPane things were all jacked up.
-                return new VBox();
-            }
-        });
-        mBottom.getChildren().add(mPager);
     }
 
     @FXML
@@ -96,7 +98,7 @@ public class MainController {
 
         grid.setVgap(20);
         grid.setPadding(new Insets(20, 10, 0, 10));
-        grid.setGridLinesVisible(true);
+        grid.setGridLinesVisible(false);
         grid.setId("mainGrid");
 
         return grid;
@@ -117,18 +119,18 @@ public class MainController {
             }
         }
         grid.setOnMouseClicked(event -> {
-            System.out.println(event.getTarget());
-            System.out.println(event.getSource());
-
             Node source = (Node)event.getTarget();
             System.out.println("source.id: " + source.getId());
 
             // TODO:as pass in the DVD's id number.
             // TODO:as pass in the Pagination pageIndex.
             try {
-                Parent parent = FXMLLoader.load(getClass().getResource("/fxml/dvd.fxml"));
-                DvdController.initData(source.getId(), mPager.getCurrentPageIndex());
-                Scene scene = new Scene(parent);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dvd.fxml"));
+                Parent parent = (Parent)loader.load();
+                DvdController controller = loader.  getController();
+                controller.initData(source.getId(), mPager.getCurrentPageIndex());
+
+                Scene scene = new Scene(parent, 800, 700);
                 Stage stage = (Stage)source.getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
