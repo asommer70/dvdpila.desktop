@@ -1,6 +1,7 @@
 package com.thehoick.dvdpila;
 
 
+import com.sun.javafx.scene.control.skin.LabeledText;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -120,10 +121,9 @@ public class MainController {
         }
         grid.setOnMouseClicked(event -> {
             Node source = (Node)event.getTarget();
-            System.out.println("source.id: " + source.getId());
-
-            // TODO:as pass in the DVD's id number.
-            // TODO:as pass in the Pagination pageIndex.
+            if (source instanceof LabeledText) {
+                source = source.getParent();
+            }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dvd.fxml"));
                 Parent parent = (Parent)loader.load();
@@ -160,7 +160,7 @@ public class MainController {
         dvdBox.setSpacing(10);
         dvdBox.setAlignment(Pos.CENTER);
         dvdBox.getChildren().addAll(dvdImage, dvdTitle);
-        dvdBox.setId(String.valueOf(dvd.getId()));
+        dvdBox.setId("vbox:" + String.valueOf(dvd.getId()));
         return dvdBox;
     }
 

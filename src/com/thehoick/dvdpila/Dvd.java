@@ -1,6 +1,7 @@
 package com.thehoick.dvdpila;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -36,6 +37,9 @@ public class Dvd {
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
+    @SerializedName("created_at")
+    @Expose
+    private Date createdAt;
     @SerializedName("url")
     @Expose
     private String url;
@@ -129,8 +133,13 @@ public class Dvd {
         return url;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
 }
+

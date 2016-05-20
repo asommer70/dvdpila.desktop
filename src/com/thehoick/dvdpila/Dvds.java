@@ -37,4 +37,5 @@ public class Dvds {
         maxPages = this.getCount() / 10;
         return maxPages;
     }
+
 }
