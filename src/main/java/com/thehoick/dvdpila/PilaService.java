@@ -12,11 +12,9 @@ import java.util.Map;
 import java.util.Properties;
 
 public interface PilaService {
-    Properties mSettings = Settings.getSettings();
+//    public String URL =  Settings.getSettings().getProperty("url");
+    Settings mSettings = new Settings();
 
-    public static final String URL = mSettings.getProperty("url");
-
-    // http://localhost:3000/dvds.json?page=2
     @GET("dvds.json")
     Call<Dvds> getDvds(@QueryMap Map<String, String> options);
 
@@ -24,7 +22,7 @@ public interface PilaService {
     Call<Dvd> getDvdData(@Path("id") String id);
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URL)
+            .baseUrl(mSettings.getSettings().getProperty("url"))
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

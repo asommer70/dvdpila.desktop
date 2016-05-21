@@ -8,19 +8,20 @@ import java.util.Properties;
 public class SettingsController {
     @FXML
     private TextField mUrlField;
-    private Properties mSettings;
+
+    Settings mSettings = new Settings();
+
 
     public void initialize() {
-        mSettings = Settings.getSettings();
-        mUrlField.setText(mSettings.getProperty("url"));
+        mUrlField.setText(mSettings.getSettings().getProperty("url"));
     }
 
     public TextField getUrlField() {
         return mUrlField;
     }
 
-    public void processResults() {
-        Properties settings = Settings.getSettings();
+    void processResults() {
+        Properties settings = mSettings.getSettings();
         if (settings == null) {
             settings = new Properties();
         }

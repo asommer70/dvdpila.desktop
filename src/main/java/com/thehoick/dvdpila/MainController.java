@@ -27,28 +27,36 @@ public class MainController {
     private Map<String, String> mOptions = new HashMap<String, String>();
     private Pagination mPager;
 
+//    public static void refresh() {
+//        new MainController.set(0);
+//    }
+
     public void setPageIndex(int pageIndex) {
         mMainPane.getChildren().removeAll();
 
-        mPageIndex = pageIndex;
-        mPager = new Pagination(mMaxPages, mPageIndex);
-        mPager.setPageFactory(new Callback<Integer, Node>() {
-            @Override
-            public Node call(Integer pageIndex) {
-                mMainPane.getChildren().removeAll();
-                mOptions.put("page", String.valueOf(pageIndex + 1));
-                getDvds(mOptions);
-                GridPane grid = getDvdGrid();
-                grid = addDvdsToGrid(grid);
-                mMainPane.setCenter(grid);
-                // Need to return something, and when trying to return the GridPane things were all jacked up.
-                return new VBox();
-            }
-        });
+        if (mDvds == null) {
+            Label noDvds = new Label("Unable to get DVDs...");
+            mMainPane.setCenter(noDvds);
+        } else {
+            mPageIndex = pageIndex;
+            mPager = new Pagination(mMaxPages, mPageIndex);
+            mPager.setPageFactory(new Callback<Integer, Node>() {
+                @Override
+                public Node call(Integer pageIndex) {
+                    mMainPane.getChildren().removeAll();
+                    mOptions.put("page", String.valueOf(pageIndex + 1));
+                    getDvds(mOptions);
+                    GridPane grid = getDvdGrid();
+                    grid = addDvdsToGrid(grid);
+                    mMainPane.setCenter(grid);
+                    // Need to return something, and when trying to return the GridPane things were all jacked up.
+                    return new VBox();
+                }
+            });
 
-        // TODO:as figure out a way to only add the mPager once...
-        mPager.setId("dvdPager");
-        mBottom.getChildren().add(mPager);
+            mPager.setId("dvdPager");
+            mBottom.getChildren().add(mPager);
+        }
     }
 
     @FXML
@@ -75,6 +83,7 @@ public class MainController {
             }
             mDvds = dvds.getDvds();
         } catch (IOException e) {
+            System.err.println("Couldn't connect to DVD Pila! URL...");
             e.printStackTrace();
         }
     }
@@ -178,9 +187,12 @@ public class MainController {
 
         Optional<ButtonType> result = settingsDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            System.out.println("OK pressed...");
             SettingsController settingsController = fxmlLoader.getController();
             settingsController.processResults();
+
+//            Settings.setSettings();
+            getDvds(mOptions);
+            setPageIndex(0);
         }
     }
 

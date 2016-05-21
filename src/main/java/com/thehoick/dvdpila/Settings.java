@@ -1,20 +1,20 @@
 package com.thehoick.dvdpila;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 
-public class Settings {
-    private static Properties mSettings = new Properties();
+class Settings {
+    private Properties mSettings = new Properties();
 
-    private Settings() {
-    }
-
-    public static Properties getSettings() {
+     Properties getSettings() {
         InputStream input = null;
 
         try {
-            input = new FileInputStream("config.properties");
+            input = Settings.class.getResourceAsStream("/configs/config.properties");
             mSettings.load(input);
+            System.out.println("mSettings: " + mSettings);
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -29,20 +29,25 @@ public class Settings {
         return mSettings;
     }
 
-    public static void setSettings(Properties settings) {
+    static void setSettings(Properties settings) {
         OutputStream output = null;
 
         try {
-
-            output = new FileOutputStream("config.properties");
+            URL resourceUrl = Settings.class.getResource("/configs/config.properties");
+            File file = new File(resourceUrl.toURI());
+            output = new FileOutputStream(file);
             settings.store(output, null);
 
         } catch (IOException io) {
             io.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         } finally {
             if (output != null) {
                 try {
                     output.close();
+                    Settings s = new Settings();
+                    s.getSettings();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
