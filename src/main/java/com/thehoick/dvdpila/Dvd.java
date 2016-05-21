@@ -18,7 +18,7 @@ public class Dvd {
     private String title;
     @SerializedName("rating")
     @Expose
-    private Object rating;
+    private int rating;
     @SerializedName("abstract_txt")
     @Expose
     private String abstractTxt;
@@ -77,7 +77,7 @@ public class Dvd {
         return rating;
     }
 
-    public void setRating(Object rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
+
+    testCompile "junit:junit:4.11"
+}

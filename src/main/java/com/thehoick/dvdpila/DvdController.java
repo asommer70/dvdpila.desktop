@@ -86,40 +86,11 @@ public class DvdController {
         mAbstractTxt.setText(mDvd.getAbstractTxt());
         PrettyTime p = new PrettyTime();
         mCreated.setText(p.format(mDvd.getCreatedAt()));
-        mRating.setText((String) mDvd.getRating());
+        mRating.setText((String) mDvd.getRating().toString());
 
         Media media = new Media(mDvd.getFileUrl());
         MediaPlayer player = new MediaPlayer(media);
         mMediaView.setMediaPlayer(player);
-        if (media.getError() == null) {
-            media.setOnError(new Runnable() {
-                public void run() {
-                    // Handle asynchronous error in Media object.
-                }
-            });
-            try {
-                player = new MediaPlayer(media);
-                if (player.getError() == null) {
-                    player.setOnError(new Runnable() {
-                        public void run() {
-                            // Handle asynchronous error in MediaPlayer object.
-                        }
-                    });
-                    mMediaView.setOnError(new EventHandler() {
-                        @Override
-                        public void handle(Event event) {
-
-                        }
-                    });
-                } else {
-                    // Handle synchronous error creating MediaPlayer.
-                }
-            } catch (Exception mediaPlayerException) {
-                // Handle exception in MediaPlayer constructor.
-            }
-        } else {
-            // Handle synchronous error creating Media.
-        }
 
         Image image = new Image(mDvd.getImageUrl());
         mImageView.setImage(image);
