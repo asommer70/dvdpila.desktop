@@ -65,8 +65,8 @@ public class MainController {
 
     @FXML
     private void getDvds(Map<String, String> options) {
-        DvdsService dvdsService = DvdsService.retrofit.create(DvdsService.class);
-        Call<Dvds> call = dvdsService.getDvds(options);
+        PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+        Call<Dvds> call = pilaService.getDvds(options);
 
         try {
             Dvds dvds = call.execute().body();

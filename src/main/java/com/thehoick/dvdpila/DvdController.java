@@ -1,34 +1,22 @@
 package com.thehoick.dvdpila;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaErrorEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.ocpsoft.prettytime.PrettyTime;
 import retrofit2.Call;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
 
 public class DvdController {
     private int mPageIndex;
@@ -103,8 +91,8 @@ public class DvdController {
 
     private void getDvd() {
         if (mDvdId != null) {
-            DvdsService dvdsService = DvdsService.retrofit.create(DvdsService.class);
-            Call<Dvd> call = dvdsService.getDvdData(mDvdId);
+            PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+            Call<Dvd> call = pilaService.getDvdData(mDvdId);
 
             try {
                 mDvd = call.execute().body();
