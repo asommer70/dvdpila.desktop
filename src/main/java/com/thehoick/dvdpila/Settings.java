@@ -14,7 +14,6 @@ class Settings {
         try {
             input = Settings.class.getResourceAsStream("/configs/config.properties");
             mSettings.load(input);
-            System.out.println("mSettings: " + mSettings);
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {

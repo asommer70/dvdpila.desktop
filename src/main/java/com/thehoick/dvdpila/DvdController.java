@@ -92,14 +92,11 @@ public class DvdController {
 
     private void getDvd() {
         if (mDvdId != null) {
-            PilaGenerator pg = new PilaGenerator();
+            PilaBuilder pg = new PilaBuilder();
             Retrofit.Builder builder = pg.getBuilder();
             Retrofit retrofit = builder.build();
             PilaService pilaService = retrofit.create(PilaService.class);
             Call<Dvd> call = pilaService.getDvdData(mDvdId);
-
-//            PilaService pilaService = PilaService.retrofit.create(PilaService.class);
-//            Call<Dvd> call = pilaService.getDvdData(mDvdId);
 
             try {
                 mDvd = call.execute().body();
