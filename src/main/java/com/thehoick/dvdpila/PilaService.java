@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public interface PilaService {
-//    public String URL =  Settings.getSettings().getProperty("url");
+//    public static String URL =  Settings.getSettings().getProperty("url");
     Settings mSettings = new Settings();
 
     @GET("dvds.json")
@@ -21,8 +21,10 @@ public interface PilaService {
     @GET("dvds/{id}.json")
     Call<Dvd> getDvdData(@Path("id") String id);
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(mSettings.getSettings().getProperty("url"))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+    PilaGenerator g = new PilaGenerator();
+
+//    Retrofit retrofit = new Retrofit.Builder()
+//            .baseUrl(mSettings.getSettings().getProperty("url"))
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build();
 }

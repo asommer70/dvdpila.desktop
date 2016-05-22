@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.ocpsoft.prettytime.PrettyTime;
 import retrofit2.Call;
+import retrofit2.Retrofit;
 
 import java.io.IOException;
 
@@ -91,8 +92,14 @@ public class DvdController {
 
     private void getDvd() {
         if (mDvdId != null) {
-            PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+            PilaGenerator pg = new PilaGenerator();
+            Retrofit.Builder builder = pg.getBuilder();
+            Retrofit retrofit = builder.build();
+            PilaService pilaService = retrofit.create(PilaService.class);
             Call<Dvd> call = pilaService.getDvdData(mDvdId);
+
+//            PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+//            Call<Dvd> call = pilaService.getDvdData(mDvdId);
 
             try {
                 mDvd = call.execute().body();

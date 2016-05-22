@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import retrofit2.Call;
+import retrofit2.Retrofit;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,6 +35,7 @@ public class MainController {
     public void setPageIndex(int pageIndex) {
         mMainPane.getChildren().removeAll();
 
+        System.out.println("mDvds: " + mDvds);
         if (mDvds == null) {
             Label noDvds = new Label("Unable to get DVDs...");
             mMainPane.setCenter(noDvds);
@@ -73,9 +75,17 @@ public class MainController {
 
     @FXML
     private void getDvds(Map<String, String> options) {
-        PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+//        PilaService pilaService = PilaService.retrofit.create(PilaService.class);
+//        Call<Dvds> call = pilaService.getDvds(options);
+
+        PilaGenerator pg = new PilaGenerator();
+        Retrofit.Builder builder = pg.getBuilder();
+        Retrofit retrofit = builder.build();
+        PilaService pilaService = retrofit.create(PilaService.class);
         Call<Dvds> call = pilaService.getDvds(options);
 
+        Settings settings = new Settings();
+        System.out.println("Getting DVDs from: " + settings.getSettings().getProperty("url"));
         try {
             Dvds dvds = call.execute().body();
             if (mMaxPages == 0) {
@@ -190,7 +200,12 @@ public class MainController {
             SettingsController settingsController = fxmlLoader.getController();
             settingsController.processResults();
 
-//            Settings.setSettings();
+//            PilaGenerator pila = new PilaGenerator();
+//            pila.changeBaseUrl();
+//            PilaService pilaService = pila.retrofit.create(PilaService.class);
+//            Call<Dvds> call = pilaService.getDvds(mOptions);
+            mDvds = null;
+            mBottom.getChildren().removeAll();
             getDvds(mOptions);
             setPageIndex(0);
         }
